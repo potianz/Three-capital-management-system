@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Administration</title>
+    <script>
+
+        function exit() {
+            if(confirm("是否退出登录？")){
+                //点击确定是true
+                //删除cookie
+                var xml =new XMLHttpRequest();
+                xml.open("post","/countryside/exit",true);
+                //回调函数
+                function doBack() {
+                    //打开登录页面
+                    location.href = "/countryside";
+                    alert("注销成功！");
+                }
+                //监听响应
+                xml.onreadystatechange = function () {
+                    if(xml.readyState==4 && xml.status == 200){
+                        doBack();
+                    }
+                }
+                //发送请求
+                xml.send();
+            }
+        }
+
+    </script>
+    <style>
+        body{
+            /*去掉body的外边框*/
+            margin: 0;
+        }
+        .top{
+            /*//设置top的宽和高*/
+            width: 100%;
+            height: 120px;
+            border-bottom: 2px solid #31b0d5;
+            /*设置背景，不平铺*/
+            /*background: url(imgs/logo_top.jpeg) no-repeat;*/
+        }
+        .left{
+            width:218px;
+            /*定位*/
+            position: absolute;
+            /*距离顶部*/
+            top: 110px;
+            /*距离底部*/
+            bottom: 0px;
+
+        }
+        .right{
+            position: absolute;
+            top: 110px;
+            bottom: 0px;
+            left: 220px;
+            right: 0px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <div class="login-msg">欢迎^_^,用户<a href="javascript:exit()">退出登录</a></div>
+    </div>
+    <div class="left">
+        <br>
+        <h2><a href="" target="content"> 资金管理</a></h2><br>
+        <h2><a href="" target="content"> 资源管理</a></h2><br>
+        <h2><a href="" target="content"> 资产管理</a></h2> <br>
+        <h2><a href="" target="content"> 合同管理</a></h2><br>
+        <h2><a href="" target="content"> 三资管理</a></h2><br>
+    </div>
+    <div class="right">
+        <iframe  name="content" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+</body>
+</html>
