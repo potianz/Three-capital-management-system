@@ -24,10 +24,12 @@ public class LoginController {
 
     public String login(String name, String password, HttpServletResponse response){
         if(userService.login(name,password)!=null){
-            Cookie cookie = new Cookie("isLogin","yes");
+            Cookie cookie = new Cookie("isLogin",name);
+            Cookie cookie1 = new Cookie("id",""+userService.selectId(name));
             cookie.setMaxAge(60*5);
             cookie.setPath("/");
             response.addCookie(cookie);
+            response.addCookie(cookie1);
             return "administration";
         }
         return "index";

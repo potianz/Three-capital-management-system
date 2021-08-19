@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
        return userMapper.insert(user);
     }
 
+    @Override
+    public Long selectId(String name) {
+        return userMapper.selectUser(name).getId();
+    }
+
 }

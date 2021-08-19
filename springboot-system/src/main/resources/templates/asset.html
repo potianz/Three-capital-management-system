@@ -202,8 +202,9 @@
         function cancel(newRow) {
             var cancel = document.getElementById("cancel");
             cancel.onclick =function () {
-                newRow.innerHTML = "";
-                // location.href = "/countryside/asse";
+                var tab = document.getElementById("tablesa");
+                tab.deleteRow(tab.rows.length-1);
+
             }
         }
     </script>
