@@ -1,0 +1,50 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript">
+        function save(){
+            alert("修改成功")
+        }
+
+    </script>
+</head>
+
+<body>
+<div class="page-content">
+    <!--添加入围信息样式-->
+    <div class="finalists_style">
+        <form action="/money/toSaveUpdateAdd" method="post">
+            <input type="hidden" th:value="${money.countrySideId}" name="mid">
+            <input type="hidden" th:value="${money.id}" name="id">
+            <div class="Manager_style">
+                <h1>修改乡镇入账资金</h1>
+                <table class="table table-striped table-bordered table-hover" >
+                    <thead>
+                    <tr>
+                        <th width="30%"> 入账描述: </th>
+                        <td> <input type="text" name="addDescribe" th:value="${money.addDescribe}" style="width: 90%;" > </td>
+                    </tr>
+                    <tr>
+                        <th width="30%"> 入账金额: </th>
+                        <td> <input type="text" name="addMoney" th:value="${money.addMoney}" style="width: 90%;" > </td>
+                    </tr>
+                    <tr>
+                        <th width="30%"> 入账时间: </th>
+                        <td> <input type="text" name="addTime" th:value="${money.addTime}" style="width: 90%;" > </td>
+                    </tr>
+
+                    </thead>
+                </table>
+            </div>
+
+            <div class="btn_style">
+                <input type="submit" th:onclick="save()" value="保存" class="btn  btn-danger  save_btn">
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>资金管理信息</title>
+    <script type="text/javascript">
+        function toSelect1(id){
+            location.assign("/money/toUpdateMoney?res=1&id="+id);
+        }
+        function toSelect2(id){
+            location.assign("/money/toUpdateMoney?res=-1&id="+id);
+        }
+
+        function toAdd1(id){
+            location.assign("/money/toAddMoney?cid="+id);
+        }
+        function toDelete1(id,mid,addmoney) {
+            if (confirm("您确定要删除吗？")) {
+                location.assign("/money/toDelete?res=1&reducemoney=0&id=" + id + "&mid=" + mid+"&addmoney="+addmoney);
+            }
+        }
+        function toAdd2(id){
+            location.assign("/money/toReduceMoney?cid="+id);
+        }
+
+        function toDelete2(id, mid,reducemoney) {
+                if (confirm("您确定要删除吗？")) {
+                    location.assign("/money/toDelete?res=2&addmoney=0&id=" + id + "&mid=" + mid+"&reducemoney="+reducemoney);
+                }
+        }
+
+    </script>
+</head>
+<body>
+<div class="search_style">
+    <ul class="search_content clearfix">
+        <button th:onclick="toAdd1([[${money['id']}]])" type="button" class="btn btn-primary gys_bz">新增入账</button>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <button th:onclick="toAdd2([[${money['id']}]])" type="button" class="btn  btn-danger  save_btn">新增出账</button>
+    </ul>
+</div>
+<div style="text-align: center ; width: 1000px"  >
+
+    <div><h1 style="color:cornflowerblue;" th:text="${money.name}"></h1></div>
+    <h3><div style="float: right" th:text="${money.totalMoney}" ></div><div style="text-align: right ;float: right">总金额为:</div><div style="clear: right"></div></h3>
+    <h4><div style="font-size: larger ;color: #31b0d5;text-align: left">入账表</div><div style="color: greenyellow;float: right" th:text="${money.addMoney}" ></div><div style="float: right">入账总金额为:</div><div style="clear: right"></div></h4>
+    <table id="" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>入账描述</th>
+            <th>入账金额</th>
+            <th>入账时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="addMoney,stat:${addMoney}" th:style="'background-color:'+@{${stat.odd}?'#F2F2F2'}">
+            <td th:text="${stat.count}"></td>
+            <td th:text="${addMoney['addDescribe']}"></td>
+            <td th:text="${addMoney['addMoney']}"></td>
+            <td th:text="${addMoney['addTime']}"></td>
+            <td>
+                <a  th:onclick="toSelect1([[${addMoney['id']}]])"  class="btn btn-primary gys_bz">修改</a>
+                <a  th:onclick="toDelete1([[${addMoney['id']}]],[[${money['id']}]],[[${addMoney['addMoney']}]])" class="btn btn-primary gys_bz">删除</a>
+            </td>
+        </tr>
+        </tbody>
+   </table>
+    <h4><div style="font-size: larger ;color: #31b0d5;text-align: left">出账表</div><div style="color: red;float: right" th:text="${money.reduceMoney}" ></div><div style="float: right">出账总金额为:</div><div style="clear: right"></div></h4>
+    <table  class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>出账描述</th>
+            <th>出账金额</th>
+            <th>出账时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reduceMoney,stat:${reduceMoney}" th:style="'background-color:'+@{${stat.odd}?'#F2F2F2'}">
+            <td th:text="${stat.count}"></td>
+            <td th:text="${reduceMoney['reduceDescribe']}"></td>
+            <td th:text="${reduceMoney['reduceMoney']}"></td>
+            <td th:text="${reduceMoney['reduceTime']}"></td>
+            <td>
+                <a th:onclick="toSelect2([[${reduceMoney['id']}]])"  class="btn btn-primary gys_bz">修改</a>
+                <a th:onclick="toDelete2([[${reduceMoney['id']}]],[[${money['id']}]],[[${reduceMoney['reduceMoney']}]])" class="btn btn-primary gys_bz">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
